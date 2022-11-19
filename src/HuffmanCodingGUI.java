@@ -45,8 +45,8 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
         inputTextArea.setFont(primaryFont);
         inputTextArea.setBackground(null);
 
-        encode.setIcon(new ImageIcon("icons/compress.png"));
-        decode.setIcon(new ImageIcon("icons/maximize.png"));
+        encode.setIcon(new ImageIcon("assets/compress.png"));
+        decode.setIcon(new ImageIcon("assets/maximize.png"));
 
         buttonPanel.add(encode);
         encode.setFont(secondaryFont);
@@ -79,7 +79,7 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
         int i = 1;
 
         try {
-            Scanner scanner = new Scanner(new File("LetterCountAscending.txt"));
+            Scanner scanner = new Scanner(new File("assets/LetterCountAscending.txt"));
             while (scanner.hasNextLine()) {
                 String[] values = scanner.nextLine().split("\t");
 
@@ -92,7 +92,7 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
+        frequencyTable.sort();
 //        System.out.println(frequencyTable); // debug
 
         new HuffmanCodingGUI();

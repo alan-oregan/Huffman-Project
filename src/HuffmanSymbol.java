@@ -1,6 +1,6 @@
 package src;
 
-public class HuffmanSymbol {
+public class HuffmanSymbol implements Comparable<HuffmanSymbol> {
 
     private char character;
     private int frequency;
@@ -32,5 +32,10 @@ public class HuffmanSymbol {
                 "character=" + character +
                 ", frequency=" + frequency +
                 '}';
+    }
+
+    @Override
+    public int compareTo(HuffmanSymbol that) {
+        return this.frequency - that.frequency;
     }
 }

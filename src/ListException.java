@@ -1,7 +1,7 @@
 package src;
 
 public class ListException extends RuntimeException {
-  public ListException(String s) {
-    super(s);
-  }  // end constructor
+    public ListException(String s) {
+        super(s);
+    }  // end constructor
 }  // end ListException
