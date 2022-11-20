@@ -1,5 +1,7 @@
 package src;
 
+import com.sun.source.tree.Tree;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -73,20 +75,31 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE); // stop the program on close
     }
 
+    static void printInorder(TreeNode node)
+    {
+        if (node == null)
+            return;
+
+        System.out.print(node.getItem()+"\n");
+        printInorder(node.getLeft());
+        printInorder(node.getRight());
+    }
+
     public static void main(String[] args) {
 
         ListArrayBased frequencyTable = new ListArrayBased();
-        int i = 1;
+        TreeNode rootNode = null;
 
         try {
             Scanner scanner = new Scanner(new File("assets/LetterCountAscending.txt"));
+            int i = 1;
             while (scanner.hasNextLine()) {
                 String[] values = scanner.nextLine().split("\t");
 
                 char character = values[0].charAt(0);
                 int frequency = Integer.parseInt(values[1]);
 //                System.out.printf("Char: %c, Frequency: %d\n", character, frequency); // debug
-                frequencyTable.add(i++, new HuffmanSymbol(character, frequency));
+                frequencyTable.add(i++, new TreeNode(new HuffmanSymbol(character, frequency)));
             }
             scanner.close();
         } catch (FileNotFoundException e) {
@@ -95,7 +108,41 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
         frequencyTable.sort();
 //        System.out.println(frequencyTable); // debug
 
-        new HuffmanCodingGUI();
+        TreeNode first;
+        TreeNode second;
+        HuffmanSymbol newRootSymbol;
+        while (frequencyTable.size() > 1) {
+
+            // get the first two items from the table and cast them to a HuffmanSymbol
+            first = (TreeNode)frequencyTable.get(1);
+            second = (TreeNode)frequencyTable.get(2);
+
+            // create the new root symbol with a '*' character
+            // and the sum of the first two items frequency
+            newRootSymbol = new HuffmanSymbol(
+                    '*',
+                    ((HuffmanSymbol)first.getItem()).getFrequency()
+                            + ((HuffmanSymbol)second.getItem()).getFrequency()
+            );
+
+            // replace the root node with the new root symbol node
+            // and use the first two items as the left and right children
+            rootNode = new TreeNode(newRootSymbol);
+            rootNode.setLeft(first);
+            rootNode.setRight(second);
+
+            // remove the first two items as they are now in a tree
+            frequencyTable.remove(1);
+            frequencyTable.remove(1);
+
+            frequencyTable.add(frequencyTable.size()+1, rootNode); // add new root symbol to the end of the table
+            frequencyTable.sort(); // sort in order to place new root symbol in its proper place
+        }
+
+        printInorder(rootNode);
+
+
+//        new HuffmanCodingGUI();
     }
 
     public void actionPerformed(ActionEvent e) {

@@ -33,7 +33,7 @@ public class ListArrayBased implements ListInterface
         numItems = 0;
     }
 
-    public void add(int index, Object item) throws  ListIndexOutOfBoundsException
+    public void add(int index, Object item) throws ListIndexOutOfBoundsException
     {
         index = translate(index);
 
@@ -46,7 +46,7 @@ public class ListArrayBased implements ListInterface
             // make room for new element by shifting all items at
             // positions >= index toward the end of the
             // list (no shift if index == numItems+1)
-            for (int pos = translate(numItems); pos >= index; pos--)
+            for (int pos = translate(numItems); pos >= index+1; pos--)
             {
                 items[pos+1] = items[pos];
             }
@@ -80,7 +80,7 @@ public class ListArrayBased implements ListInterface
             // delete item by shifting all items at
             // positions > index toward the beginning of the list
             // (no shift if index == size)
-            for (int pos = translate(index+1); pos <= size(); pos++)
+            for (int pos = index; pos < size(); pos++)
             {
                 items[pos-1] = items[pos];
             }
