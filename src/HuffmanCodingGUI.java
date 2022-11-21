@@ -19,6 +19,7 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
 
     // global variable to store the lookupTable
     private static ListArrayBased lookupTable = new ListArrayBased();
+    private static TreeNode rootNode = null;
 
     public HuffmanCodingGUI() {
 
@@ -101,8 +102,7 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
     }
 
 
-    private static TreeNode generateHuffmanTree(ListArrayBased frequencyTable) {
-        TreeNode rootNode = null;
+    private static void generateHuffmanTree(ListArrayBased frequencyTable) {
 
         TreeNode first;
         TreeNode second;
@@ -134,7 +134,6 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
             frequencyTable.add(frequencyTable.size()+1, rootNode); // add new root symbol to the end of the table
             frequencyTable.sort(); // sort in order to place new root symbol in its proper place
         }
-        return rootNode;
     }
 
     /**
@@ -176,7 +175,7 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
     /**
      * encoding method based on binary search.
      * @param characters the string of characters to be encoded
-     * @return the encoded value of a given character
+     * @return the encoded value of given characters
      */
     public static String encodeCharacters(String characters) {
         StringBuilder sb = new StringBuilder();
@@ -184,7 +183,7 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
         for (char ch : characters.toUpperCase(Locale.ROOT).toCharArray()) {
 
             int low = 1, high = lookupTable.size(), mid;
-            while (low != high) {
+            while (low <= high) {
                 mid = (low + high) / 2;
                 HuffmanEncodedSymbol midItem = ((HuffmanEncodedSymbol)lookupTable.get(mid));
 
@@ -203,13 +202,53 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
         return sb.toString();
     }
 
+    /**
+     * Decoding method based on binary search.
+     * @param characters the string of characters to be decoded
+     * @return the decoded value of given characters
+     */
+    public static String decodeCharacters(String characters) {
+        StringBuilder sb = new StringBuilder();
+        TreeNode currentNode = rootNode;
+
+        for (char ch : characters.toCharArray()) {
+
+            char character = ((HuffmanSymbol) currentNode.getItem()).getCharacter();
+
+            if (character != '*') {
+                sb.append(character);
+                currentNode = rootNode;
+            }
+
+            currentNode = switch (ch) {
+                case '0' -> currentNode.getLeft();
+                case '1' -> currentNode.getRight();
+                default -> currentNode;
+            };
+        }
+        sb.append(((HuffmanSymbol) currentNode.getItem()).getCharacter());
+
+        return sb.toString();
+    }
+
+    public static void testEncodeCharacters() {
+        for (int i = 1; i < lookupTable.size(); i++) {
+            HuffmanEncodedSymbol symbol = (HuffmanEncodedSymbol) lookupTable.get(i);
+            System.out.printf("Test %c: %b\n", symbol.letter, symbol.binary.equals(encodeCharacters(symbol.letter+"")));
+        }
+    }
+
+
     public static void main(String[] args) {
 
         ListArrayBased frequencyTable = readLetterCount("assets/LetterCountAscending.txt", "\t");
 
-        TreeNode rootNode = generateHuffmanTree(frequencyTable);
+        generateHuffmanTree(frequencyTable);
 
         generateLookupTable(rootNode);
+
+//         // testing
+//         testEncodeCharacters();
 
         // start GUI
         new HuffmanCodingGUI();
@@ -222,7 +261,7 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
         if (source == encode) {
             inputTextArea.setText(encodeCharacters(inputTextArea.getText()));
         } else if (source == decode) {
-            inputTextArea.setText("Decode \""+ inputTextArea.getText() +"\" here");
+            inputTextArea.setText(decodeCharacters(inputTextArea.getText()));
         }
     }
 }
