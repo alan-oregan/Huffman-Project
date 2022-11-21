@@ -1,13 +1,12 @@
 package src;
 
-import com.sun.source.tree.Tree;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.Locale;
 import java.util.Scanner;
 
 public class HuffmanCodingGUI extends JFrame implements ActionListener {
@@ -15,8 +14,11 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
     private final JButton encode = new JButton("Encode");
     private final JButton decode = new JButton("Decode");
 
-    private final JTextArea inputTextArea = new JTextArea("Input here...");
-    private final JTextArea resultTextArea = new JTextArea();
+    private final JTextArea inputTextArea = new JTextArea();
+    private final JTextArea resultTextArea = new JTextArea("Enter text to Encode/Decode Below");
+
+    // global variable to store the lookupTable
+    private static ListArrayBased lookupTable = new ListArrayBased();
 
     public HuffmanCodingGUI() {
 
@@ -75,30 +77,18 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE); // stop the program on close
     }
 
-    static void printInorder(TreeNode node)
-    {
-        if (node == null)
-            return;
-
-        System.out.print(node.getItem()+"\n");
-        printInorder(node.getLeft());
-        printInorder(node.getRight());
-    }
-
-    public static void main(String[] args) {
+    public static ListArrayBased readLetterCount(String filePath, String delimiter) {
 
         ListArrayBased frequencyTable = new ListArrayBased();
-        TreeNode rootNode = null;
 
         try {
-            Scanner scanner = new Scanner(new File("assets/LetterCountAscending.txt"));
+            Scanner scanner = new Scanner(new File(filePath));
             int i = 1;
             while (scanner.hasNextLine()) {
-                String[] values = scanner.nextLine().split("\t");
+                String[] values = scanner.nextLine().split(delimiter);
 
                 char character = values[0].charAt(0);
                 int frequency = Integer.parseInt(values[1]);
-//                System.out.printf("Char: %c, Frequency: %d\n", character, frequency); // debug
                 frequencyTable.add(i++, new TreeNode(new HuffmanSymbol(character, frequency)));
             }
             scanner.close();
@@ -106,7 +96,13 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
             e.printStackTrace();
         }
         frequencyTable.sort();
-//        System.out.println(frequencyTable); // debug
+
+        return frequencyTable;
+    }
+
+
+    private static TreeNode generateHuffmanTree(ListArrayBased frequencyTable) {
+        TreeNode rootNode = null;
 
         TreeNode first;
         TreeNode second;
@@ -114,8 +110,8 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
         while (frequencyTable.size() > 1) {
 
             // get the first two items from the table and cast them to a HuffmanSymbol
-            first = (TreeNode)frequencyTable.get(1);
-            second = (TreeNode)frequencyTable.get(2);
+            first = (TreeNode) frequencyTable.get(1);
+            second = (TreeNode) frequencyTable.get(2);
 
             // create the new root symbol with a '*' character
             // and the sum of the first two items frequency
@@ -138,11 +134,85 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
             frequencyTable.add(frequencyTable.size()+1, rootNode); // add new root symbol to the end of the table
             frequencyTable.sort(); // sort in order to place new root symbol in its proper place
         }
+        return rootNode;
+    }
 
-        printInorder(rootNode);
+    /**
+     * A recursive post order traversal of the huffman tree
+     * @param node the current node (first call should be the root node)
+     * @param binary this parameter is used to pass the binary value throughout the tree (first call should be an empty string)
+     */
+    public static void postOrderTraverse(TreeNode node, String binary) {
+
+        if (node == null) {
+            return;
+        }
+
+        char character = ((HuffmanSymbol)node.getItem()).getCharacter();
+        if (character != '*') {
+            lookupTable.add(lookupTable.size()+1, new HuffmanEncodedSymbol(character, binary));
+//            System.out.printf("Character: %c, Binary: %s\n", character, binary);
+            return;
+        }
+
+        postOrderTraverse(node.getLeft(), binary+"0");
+        postOrderTraverse(node.getRight(), binary+"1");
+    }
+
+    /**
+     * Method to generate the lookup table
+     * @param rootNode the root node of the huffman tree
+     */
+    public static void generateLookupTable(TreeNode rootNode) {
+        postOrderTraverse(rootNode, "");
+        lookupTable.sort();
+        for (int i = 1; i <= lookupTable.size(); i++) {
+            HuffmanEncodedSymbol symbol = (HuffmanEncodedSymbol) lookupTable.get(i);
+//            System.out.printf("Character: %c, Binary: %s\n", symbol.letter, symbol.binary);
+        }
+    }
 
 
-//        new HuffmanCodingGUI();
+    /**
+     * encoding method based on binary search.
+     * @param characters the string of characters to be encoded
+     * @return the encoded value of a given character
+     */
+    public static String encodeCharacters(String characters) {
+        StringBuilder sb = new StringBuilder();
+
+        for (char ch : characters.toUpperCase(Locale.ROOT).toCharArray()) {
+
+            int low = 1, high = lookupTable.size(), mid;
+            while (low != high) {
+                mid = (low + high) / 2;
+                HuffmanEncodedSymbol midItem = ((HuffmanEncodedSymbol)lookupTable.get(mid));
+
+                if (midItem.letter == ch) {
+                    sb.append(midItem.binary);
+                    break; // value found exit loop
+                }
+
+                if (ch > midItem.letter)
+                    low = mid + 1;
+                else
+                    high = mid - 1;
+            }
+        }
+
+        return sb.toString();
+    }
+
+    public static void main(String[] args) {
+
+        ListArrayBased frequencyTable = readLetterCount("assets/LetterCountAscending.txt", "\t");
+
+        TreeNode rootNode = generateHuffmanTree(frequencyTable);
+
+        generateLookupTable(rootNode);
+
+        // start GUI
+        new HuffmanCodingGUI();
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -150,9 +220,9 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
         Object source = e.getSource();
 
         if (source == encode) {
-            resultTextArea.setText("Encode \""+ inputTextArea.getText() +"\" here");
+            inputTextArea.setText(encodeCharacters(inputTextArea.getText()));
         } else if (source == decode) {
-            resultTextArea.setText("Decode \""+ inputTextArea.getText() +"\" here");
+            inputTextArea.setText("Decode \""+ inputTextArea.getText() +"\" here");
         }
     }
 }

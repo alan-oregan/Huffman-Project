@@ -65,4 +65,13 @@ public class TreeNode implements Comparable<TreeNode>
     public int compareTo(TreeNode that) {
         return ((Comparable<Object>)this.getItem()).compareTo(that.getItem());
     }
+
+    @Override
+    public String toString() {
+        return "TreeNode{" +
+                "item=" + item +
+                ", leftChild=" + leftChild +
+                ", rightChild=" + rightChild +
+                '}';
+    }
 }  // end src.TreeNode
