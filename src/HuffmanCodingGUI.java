@@ -48,11 +48,13 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
         decode.setIcon(new ImageIcon("assets/maximize.png"));
 
         buttonPanel.add(encode);
+        encode.setFocusPainted(false);
         encode.setFont(secondaryFont);
         encode.setBackground(secondaryColor);
         encode.addActionListener(this);
 
         buttonPanel.add(decode);
+        encode.setFocusPainted(false);
         decode.setFont(secondaryFont);
         decode.setBackground(secondaryColor);
         decode.addActionListener(this);
@@ -101,6 +103,7 @@ public class HuffmanCodingGUI extends JFrame implements ActionListener {
                     resultTextArea.setText(String.format("Encoded! (Compression Ratio: %.2f%%)", (((float)result.length())/(inputText.length()*7))*100));
                 }
             }
+            return;
         }
 
         if (source == decode) {

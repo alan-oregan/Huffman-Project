@@ -92,7 +92,6 @@ public class HuffmanCoding {
         char character = ((HuffmanSymbol)node.getItem()).getCharacter();
         if (character != '*') {
             lookupTable.add(lookupTable.size()+1, new HuffmanEncodedSymbol(character, binary));
-//            System.out.printf("Character: %c, Binary: %s\n", character, binary);
             return;
         }
 
@@ -106,10 +105,6 @@ public class HuffmanCoding {
     private void generateLookupTable() {
         postOrderTraverse(rootNode, "");
         lookupTable.sort();
-        for (int i = 1; i <= lookupTable.size(); i++) {
-            HuffmanEncodedSymbol symbol = (HuffmanEncodedSymbol) lookupTable.get(i);
-//            System.out.printf("Character: %c, Binary: %s\n", symbol.letter, symbol.binary);
-        }
     }
 
     /**
