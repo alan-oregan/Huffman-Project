@@ -1,4 +1,4 @@
-package src;//package BinaryTrees;
+package src;
 
 public class TreeNode implements Comparable<TreeNode>
 {
