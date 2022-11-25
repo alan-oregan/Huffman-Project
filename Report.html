@@ -132,7 +132,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <section id="project-description" class="level1">
 <h1>Project Description</h1>
-<p>This project is to implement the <a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman Coding string compression algorithm</a>. This implementation uses the List and Tree abstract data types (with the addtion of the comparable interface) implemented in the <strong>ListArrayBased</strong> and <strong>TreeNode</strong> classes from the <u>Data Structures and Algorithms</u> module along with custom data classes <strong>HuffmanSymbol</strong> and <strong>HuffmanEncodedSymbol</strong> to handle the data. This implementation includes a graphical user interface to interact with the program, developed using methods from the <u>GUI Programming</u> Module.</p>
+<p>This project is an implementation of the <a href="https://en.wikipedia.org/wiki/Huffman_coding">Huffman Coding string compression algorithm</a>. This implementation uses the List and Tree abstract data types (with the addtion of the comparable interface) implemented in the <strong>ListArrayBased</strong> and <strong>TreeNode</strong> classes from the <u>Data Structures and Algorithms</u> module along with custom data classes <strong>HuffmanSymbol</strong> and <strong>HuffmanEncodedSymbol</strong> to handle the data. This implementation includes a graphical user interface to interact with the program, developed using methods from the <u>GUI Programming</u> Module.</p>
 <section id="part-1-generating-the-huffman-tree" class="level2">
 <h2 class="anchored" data-anchor-id="part-1-generating-the-huffman-tree">Part 1: Generating the Huffman Tree</h2>
 <p><em>Implementation: <a href="src/HuffmanCoding.java#L47">HuffmanCoding.generateHuffmanTree Line:47</a></em></p>
@@ -251,6 +251,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="encode-button-logic" class="level3">
 <h3 class="anchored" data-anchor-id="encode-button-logic">Encode button logic</h3>
 <p>Implementation: <em><a href="src/HuffmanCodingGUI.java#L88">HuffmanCodingGUI.actionPerformed() Line:188</a></em></p>
+<p>Compression Ratio Formula: (Number of bits in encoding / (Number of charaters in input * 7)) * 100</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>source <span class="op">==</span> encode<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(!</span>inputText<span class="op">.</span><span class="fu">isBlank</span><span class="op">())</span></span>

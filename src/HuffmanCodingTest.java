@@ -7,14 +7,16 @@ public class HuffmanCodingTest {
     public static void testEncodeCharacters() {
         for (int i = 1; i < huffmanCoding.getLookupTable().size(); i++) {
             HuffmanEncodedSymbol symbol = (HuffmanEncodedSymbol) huffmanCoding.getLookupTable().get(i);
-            System.out.printf("%c == %-10s %b\n", symbol.letter, symbol.binary, symbol.binary.equals(huffmanCoding.encodeCharacters(Character.toString(symbol.letter))));
+            assert symbol.binary.equals(huffmanCoding.encodeCharacters(Character.toString(symbol.letter))) : String.format("%c should equal %s\n", symbol.letter, symbol.binary);
+            System.out.printf("%c == %-10s\n", symbol.letter, symbol.binary);
         }
     }
 
     public static void testDecodeCharacters() {
         for (int i = 1; i < huffmanCoding.getLookupTable().size(); i++) {
             HuffmanEncodedSymbol symbol = (HuffmanEncodedSymbol) huffmanCoding.getLookupTable().get(i);
-            System.out.printf("%-10s == %c %b\n", symbol.binary, symbol.letter, symbol.letter == huffmanCoding.decodeCharacters(symbol.binary).charAt(0));
+            assert symbol.letter == huffmanCoding.decodeCharacters(symbol.binary).charAt(0) : String.format("%s should equal %c\n", symbol.binary, symbol.letter);
+            System.out.printf("%-10s == %c\n", symbol.binary, symbol.letter);
         }
     }
 

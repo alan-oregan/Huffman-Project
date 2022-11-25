@@ -6,7 +6,7 @@ highlight-style: github
 ---
 
 # Project Description
-This project is to implement the [Huffman Coding string compression algorithm](https://en.wikipedia.org/wiki/Huffman_coding).
+This project is an implementation of the [Huffman Coding string compression algorithm](https://en.wikipedia.org/wiki/Huffman_coding).
 This implementation uses the  List and Tree abstract data types (with the addtion of the comparable interface) implemented in the **ListArrayBased** and **TreeNode** classes from the <u>Data Structures and Algorithms</u> module along with custom data classes **HuffmanSymbol** and **HuffmanEncodedSymbol** to handle the data. This implementation includes a graphical user interface to interact with the program, developed using methods from the <u>GUI Programming</u> Module.
 
 ## Part 1: Generating the Huffman Tree
@@ -130,6 +130,10 @@ public String decodeCharacters(String characters) {
 ### Encode button logic
 
 Implementation: *[HuffmanCodingGUI.actionPerformed() Line:188](src/HuffmanCodingGUI.java#L88)*
+
+Compression Ratio Formula:
+    Number of bits in input = Number of characters * 7
+    (Number of bits in encoding / (Number of bits in input)) * 100
 
 ```java
 if (source == encode) {
