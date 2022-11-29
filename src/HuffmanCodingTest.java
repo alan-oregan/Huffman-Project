@@ -20,13 +20,35 @@ public class HuffmanCodingTest {
         }
     }
 
+    public static void testSortMethod() {
+        ListArrayBased unsortedList = new ListArrayBased();
+        int[] unsortedArray = {1,4,2,-1};
+        int[] sortedArray = {-1,1,2,4};
+
+        for (int i = 0; i < unsortedArray.length; i++) {
+            unsortedList.add(i+1, unsortedArray[i]);
+        }
+
+        unsortedList.sort();
+
+        for (int i = 0; i < sortedArray.length; i++) {
+            assert (int)unsortedList.get(i+1) == sortedArray[i] : String.format("Array not sorted properly (%d shouldn't be at position %d, it should be %d)", (int)unsortedList.get(i+1), i+1, sortedArray[i]);
+        }
+    }
+
     public static void main(String[] args) {
         huffmanCoding = new HuffmanCoding("assets/LetterCountAscending.txt", "\t");
 
-        System.out.println("\nTesting encodeCharacters():");
+        System.out.println("\nTesting encodeCharacters()...");
         testEncodeCharacters();
+        System.out.println("Passed");
 
-        System.out.println("\nTesting decodeCharacters():");
+        System.out.println("\nTesting decodeCharacters()...");
         testDecodeCharacters();
+        System.out.println("Passed");
+
+        System.out.println("Testing sorting algorithm...");
+        testSortMethod();
+        System.out.println("Passed");
     }
 }
