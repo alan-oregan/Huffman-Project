@@ -37,6 +37,13 @@ public class HuffmanCodingTest {
     }
 
     public static void main(String[] args) {
+
+        // Check assertions are enabled
+        boolean assertsEnabled = false;
+        assert assertsEnabled = true;
+        if (!assertsEnabled)
+            throw new RuntimeException("Please enable assertions with the '-ea' VM argument");
+
         huffmanCoding = new HuffmanCoding("assets/LetterCountAscending.txt", "\t");
 
         System.out.println("\nTesting encodeCharacters()...");

@@ -1,11 +1,12 @@
 ---
 title: "Huffman Coding Report"
-format: html
+format: pdf
 author: "Alan O'Regan"
 highlight-style: github
 ---
 
 # Project Description
+
 This project is an implementation of the [Huffman Coding string compression algorithm](https://en.wikipedia.org/wiki/Huffman_coding).
 This implementation uses the  List and Tree abstract data types (with the addtion of the comparable interface) implemented in the **ListArrayBased** and **TreeNode** classes from the <u>Data Structures and Algorithms</u> module along with custom data classes **HuffmanSymbol** and **HuffmanEncodedSymbol** to handle the data. This implementation includes a graphical user interface to interact with the program, developed using methods from the <u>GUI Programming</u> Module.
 
@@ -179,9 +180,11 @@ The program interface features 2 buttons for encoding and decoding, a label for 
 
 Implementation: *[HuffmanCodingGUI.actionPerformed() Line:188](src/HuffmanCodingGUI.java#L88)*
 
-Compression Ratio Formula:
-    Number of bits in input = Number of characters * 7
-    (Number of bits in encoding / (Number of bits in input)) * 100
+#### Compression Ratio Formula:
+
+Number of bits in input = Number of characters after sanitizing * 7
+
+(Number of bits in encoding / Number of bits in input) * 100
 
 ```java
 if (source == encode) {
@@ -227,26 +230,101 @@ if (source == decode) {
 
 # Testing
 
+To test the program, A unit test class was created in order to run tests on the critical methods implemented:
+
+- Encoding
+- Decoding
+- Sorting
+
 ## Unit Testing
+
+The Unit tests used java assertions which are enabled by giving the ``-ea`` VM argument when running the test class.
+
+### Encoding Test
+
+Encoding Unit Test - iterates through the lookup table and compares the binary value of each letter to the result of encodeCharacters() given the letter.
+```java
+public static void testEncodeCharacters() {
+    for (int i = 1; i < huffmanCoding.getLookupTable().size(); i++) {
+        HuffmanEncodedSymbol symbol = (HuffmanEncodedSymbol) huffmanCoding.getLookupTable().get(i);
+        assert symbol.binary.equals(huffmanCoding.encodeCharacters(Character.toString(symbol.letter))) : String.format("%c should equal %s\n", symbol.letter, symbol.binary);
+        System.out.printf("%c == %-10s\n", symbol.letter, symbol.binary);
+    }
+}
+```
+
+### Decoding Test
+
+Decoding Unit Test - iterates through the lookup table and compares the letter of each item to the result of decodeCharacters() given the binary value for that letter.
+```java
+public static void testDecodeCharacters() {
+    for (int i = 1; i < huffmanCoding.getLookupTable().size(); i++) {
+        HuffmanEncodedSymbol symbol = (HuffmanEncodedSymbol) huffmanCoding.getLookupTable().get(i);
+        assert symbol.letter == huffmanCoding.decodeCharacters(symbol.binary).charAt(0) : String.format("%s should equal %c\n", symbol.binary, symbol.letter);
+        System.out.printf("%-10s == %c\n", symbol.binary, symbol.letter);
+    }
+}
+```
+
+### Soring Test
+
+Sorting Unit Test - The sorting unit test creates an unsorted an sorted array of the same items then adds them to a list which is then sorted and compared to the sorted array.
+```java
+public static void testSortMethod() {
+    ListArrayBased unsortedList = new ListArrayBased();
+    int[] unsortedArray = {1,4,2,-1};
+    int[] sortedArray = {-1,1,2,4};
+
+    for (int i = 0; i < unsortedArray.length; i++) {
+        unsortedList.add(i+1, unsortedArray[i]);
+    }
+
+    unsortedList.sort();
+
+    for (int i = 0; i < sortedArray.length; i++) {
+        assert (int)unsortedList.get(i+1) == sortedArray[i] : String.format("Array not sorted properly (%d shouldn't be at position %d, it should be %d)", (int)unsortedList.get(i+1), i+1, sortedArray[i]);
+    }
+}
+```
 
 ## Input Validation Testing
 
+The GUI input and mehod parameters are sanitized using regex.
+
+### Validation Regex
+
+```java
+// GUI and Encoding method sanitisation
+inputText = inputText.toUpperCase(Locale.ROOT).replaceAll("[^A-Z]", "");
+
+// Decdoding method sanitisation
+characters = characters.toUpperCase(Locale.ROOT).replaceAll("[^01]","");
+```
+
 ### Test Cases
+
+| Input | Ouptut | Valid
+|---------|:-----|:------:
+| Alan    | 11101011111101010  | YES |
+| ALaN    | 11101011111101010  | YES |
+| a;L2an  | 11101011111101010  | YES |
+
+: Input Validation table
+
 
 # Academic Honesty
 
 Any work that you submit for continuous assessment or assignments must be done by you. Failure to acknowledge the source of a significant idea or approach is considered plagiarism and not allowed.  Academic dishonesty will be dealt with severely. At a minimum, you will receive a mark of zero for the assignment.
 
 Signed:<u> Alan O'Regan</u>
-Date: <u>22/11/2022</u>
-
-# Huffman-Project
+Date: <u>30/11/2022</u>
 
 ## Sources and References
-- Icons
+
+- GUI Button Icons
   - [Compress Icon](https://www.flaticon.com/authors/ibrandify)
   - [Maximise Icon](https://www.flaticon.com/authors/bharat-icons)
 
-- Code
+- Code References
   - [Tree traversal](https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/)
   - [Binary Search](https://www.geeksforgeeks.org/binary-search/)
