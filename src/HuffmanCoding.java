@@ -140,7 +140,7 @@ public class HuffmanCoding {
     }
 
     /**
-     * Decoding method based on binary search.
+     * Huffman Decoding implementation
      * @param characters the string of characters to be decoded
      * @return the decoded value of given characters
      */

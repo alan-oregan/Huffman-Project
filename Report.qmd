@@ -10,6 +10,13 @@ This project is an implementation of the [Huffman Coding string compression algo
 This implementation uses the  List and Tree abstract data types (with the addtion of the comparable interface) implemented in the **ListArrayBased** and **TreeNode** classes from the <u>Data Structures and Algorithms</u> module along with custom data classes **HuffmanSymbol** and **HuffmanEncodedSymbol** to handle the data. This implementation includes a graphical user interface to interact with the program, developed using methods from the <u>GUI Programming</u> Module.
 
 ## Part 1: Generating the Huffman Tree
+In order to generate the huffman tree, the generateHuffmanTree() method uses the frequency table that was generated from the given LetterCountAscending.txt file and sorted by frequency.
+- The method iterates through the frequency while there is at least 2 items remaining in the table
+- On each iteration the top 2 elements are added to a new node as the left and right child nodes with the character as '*' and the frequency value as the sum of the 2 child nodes frequency values.
+- The top 2 items are then removed from the frequency table and the new node is added
+- The table is then sorted using the sort method added to the ListArrayBased class based on the bubble sort algorithm.
+- When the iteration is complete the rootNode can be used to navigate the tree.
+
 *Implementation: [HuffmanCoding.generateHuffmanTree Line:47](src/HuffmanCoding.java#L47)*
 
 ```java
@@ -49,6 +56,37 @@ private void generateHuffmanTree() {
 ```
 
 ## Part 2: Encode
+
+In order to encode a given String of characters using the lookup table generated from the rootNode using a recursive post order traversal.
+
+*Implementation: [HuffmanCoding. Line:115](src/HuffmanCoding.java#L115)*
+
+```java
+/**
+ * A recursive post order traversal of the huffman tree
+ * @param node the current node (first call should be the root node)
+ * @param binary this parameter is used to pass the binary value throughout the tree (first call should be an empty string)
+ */
+private void postOrderTraverse(TreeNode node, String binary) {
+
+    if (node == null) {
+        return;
+    }
+
+    char character = ((HuffmanSymbol)node.getItem()).getCharacter();
+    if (character != '*') {
+        lookupTable.add(lookupTable.size()+1, new HuffmanEncodedSymbol(character, binary));
+        return;
+    }
+
+    postOrderTraverse(node.getLeft(), binary+"0");
+    postOrderTraverse(node.getRight(), binary+"1");
+}
+```
+
+
+The encodeCharacters() method uses binary search to search for the binary value of each character in the string and appends it to the StringBuilder which will then be returned as the encoded value.
+
 *Implementation: [HuffmanCoding.encodeCharacters Line:115](src/HuffmanCoding.java#L115)*
 
 ```java
@@ -87,11 +125,19 @@ public String encodeCharacters(String characters) {
 
 
 ## Part 3: Decode
+
+The decode implementation is handled in the decodeCharacters() method using the rootNode of the huffman tree.
+Each character in the encoded string are iterated through using a enhanced for loop.
+- the method intialises the current node as the root node
+- if a character is 0 then the the current node is set as the let child of the current node and the right node for 1.
+- if the character of the node is the not '*' then the character is added to the stringbuilder and the current node is reset to the root node.
+- once the loop is finished the contents of the string builder are returned as the decoded value.
+
 Implementation: *[HuffmanCoding.decodeCharacters() Line:147](src/HuffmanCoding.java#L147)*
 
 ```java
 /**
- * Decoding method based on binary search.
+ * Huffman Decoding implementation
  * @param characters the string of characters to be decoded
  * @return the decoded value of given characters
  */
@@ -124,6 +170,8 @@ public String decodeCharacters(String characters) {
 ```
 
 ## Part 4: Program Interface
+
+The program interface features 2 buttons for encoding and decoding, a label for user messages and an input box for encoding and decoding, the results of the encoding and decoding are also placed inside the input box.
 
 ![Screenshot of Program Interface](images/Program%20Interface%20Screenshot.jpg)
 
