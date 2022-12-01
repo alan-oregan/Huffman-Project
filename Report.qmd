@@ -58,17 +58,17 @@ private void generateHuffmanTree() {
 
 ## Part 2: Encode
 
-In order to encode a given String of characters using the lookup table generated from the rootNode using a recursive post order traversal.
+In order to encode a given String of characters using the lookup table generated from the rootNode using a recursive pre order traversal.
 
 *Implementation: [HuffmanCoding. Line:115](https://github.com/alan-oregan/Huffman-Project/blob/main/src/HuffmanCoding.java#L115)*
 
 ```java
 /**
- * A recursive post order traversal of the huffman tree
+ * A recursive pre order traversal of the huffman tree
  * @param node the current node (first call should be the root node)
  * @param binary this parameter is used to pass the binary value throughout the tree (first call should be an empty string)
  */
-private void postOrderTraverse(TreeNode node, String binary) {
+private void preOrderTraverse(TreeNode node, String binary) {
 
     if (node == null) {
         return;
@@ -80,8 +80,8 @@ private void postOrderTraverse(TreeNode node, String binary) {
         return;
     }
 
-    postOrderTraverse(node.getLeft(), binary+"0");
-    postOrderTraverse(node.getRight(), binary+"1");
+    preOrderTraverse(node.getLeft(), binary+"0");
+    preOrderTraverse(node.getRight(), binary+"1");
 }
 ```
 
@@ -351,8 +351,6 @@ characters = characters.toUpperCase(Locale.ROOT).replaceAll("[^01]","");
 :::
 
 ::::
-
-:::: {.columns}
 
 :::: {.columns}
 

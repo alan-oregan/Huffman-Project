@@ -173,14 +173,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="part-2-encode" class="level2">
 <h2 class="anchored" data-anchor-id="part-2-encode">Part 2: Encode</h2>
-<p>In order to encode a given String of characters using the lookup table generated from the rootNode using a recursive post order traversal.</p>
+<p>In order to encode a given String of characters using the lookup table generated from the rootNode using a recursive pre order traversal.</p>
 <p><em>Implementation: <a href="https://github.com/alan-oregan/Huffman-Project/blob/main/src/HuffmanCoding.java#L115">HuffmanCoding. Line:115</a></em></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> A recursive post order traversal of the huffman tree</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> A recursive pre order traversal of the huffman tree</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * @</span>param node the current node <span class="co">(</span>first call should be the root node<span class="co">)</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>param binary this parameter is used to pass the binary value throughout the tree <span class="co">(</span>first call should be an empty string<span class="co">)</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a> <span class="co">*/</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span> <span class="dt">void</span> <span class="fu">postOrderTraverse</span><span class="op">(</span><span class="bu">TreeNode</span> node<span class="op">,</span> <span class="bu">String</span> binary<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span> <span class="dt">void</span> <span class="fu">preOrderTraverse</span><span class="op">(</span><span class="bu">TreeNode</span> node<span class="op">,</span> <span class="bu">String</span> binary<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>node <span class="op">==</span> <span class="kw">null</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span><span class="op">;</span></span>
@@ -192,8 +192,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span><span class="op">;</span></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">postOrderTraverse</span><span class="op">(</span>node<span class="op">.</span><span class="fu">getLeft</span><span class="op">(),</span> binary<span class="op">+</span><span class="st">"0"</span><span class="op">);</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">postOrderTraverse</span><span class="op">(</span>node<span class="op">.</span><span class="fu">getRight</span><span class="op">(),</span> binary<span class="op">+</span><span class="st">"1"</span><span class="op">);</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">preOrderTraverse</span><span class="op">(</span>node<span class="op">.</span><span class="fu">getLeft</span><span class="op">(),</span> binary<span class="op">+</span><span class="st">"0"</span><span class="op">);</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">preOrderTraverse</span><span class="op">(</span>node<span class="op">.</span><span class="fu">getRight</span><span class="op">(),</span> binary<span class="op">+</span><span class="st">"1"</span><span class="op">);</span></span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The encodeCharacters() method uses binary search to search for the binary value of each character in the string and appends it to the StringBuilder which will then be returned as the encoded value.</p>
 <p><em>Implementation: <a href="https://github.com/alan-oregan/Huffman-Project/blob/main/src/HuffmanCoding.java#L115">HuffmanCoding.encodeCharacters Line:115</a></em></p>
@@ -483,7 +483,6 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 </div>
-<p>:::: {.columns}</p>
 <div class="columns">
 <div class="column">
 <div class="quarto-figure quarto-figure-center">

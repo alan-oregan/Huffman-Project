@@ -79,11 +79,11 @@ public class HuffmanCoding {
     }
 
     /**
-     * A recursive post order traversal of the huffman tree
+     * A recursive pre order traversal of the huffman tree
      * @param node the current node (first call should be the root node)
      * @param binary this parameter is used to pass the binary value throughout the tree (first call should be an empty string)
      */
-    private void postOrderTraverse(TreeNode node, String binary) {
+    private void preOrderTraverse(TreeNode node, String binary) {
 
         if (node == null) {
             return;
@@ -95,15 +95,15 @@ public class HuffmanCoding {
             return;
         }
 
-        postOrderTraverse(node.getLeft(), binary+"0");
-        postOrderTraverse(node.getRight(), binary+"1");
+        preOrderTraverse(node.getLeft(), binary+"0");
+        preOrderTraverse(node.getRight(), binary+"1");
     }
 
     /**
      * Method to generate the lookup table
      */
     private void generateLookupTable() {
-        postOrderTraverse(rootNode, "");
+        preOrderTraverse(rootNode, "");
         lookupTable.sort();
     }
 
