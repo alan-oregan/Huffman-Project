@@ -18,7 +18,7 @@ In order to generate the huffman tree, the generateHuffmanTree() method uses the
 - The table is then sorted using the sort method added to the ListArrayBased class based on the bubble sort algorithm.
 - When the iteration is complete the rootNode can be used to navigate the tree.
 
-*Implementation: [HuffmanCoding.generateHuffmanTree Line:47](src/HuffmanCoding.java#L47)*
+*Implementation: [HuffmanCoding.generateHuffmanTree Line:47](https://github.com/alan-oregan/Huffman-Project/blob/main/src/HuffmanCoding.java#L47)*
 
 ```java
 private void generateHuffmanTree() {
@@ -60,7 +60,7 @@ private void generateHuffmanTree() {
 
 In order to encode a given String of characters using the lookup table generated from the rootNode using a recursive post order traversal.
 
-*Implementation: [HuffmanCoding. Line:115](src/HuffmanCoding.java#L115)*
+*Implementation: [HuffmanCoding. Line:115](https://github.com/alan-oregan/Huffman-Project/blob/main/src/HuffmanCoding.java#L115)*
 
 ```java
 /**
@@ -88,7 +88,7 @@ private void postOrderTraverse(TreeNode node, String binary) {
 
 The encodeCharacters() method uses binary search to search for the binary value of each character in the string and appends it to the StringBuilder which will then be returned as the encoded value.
 
-*Implementation: [HuffmanCoding.encodeCharacters Line:115](src/HuffmanCoding.java#L115)*
+*Implementation: [HuffmanCoding.encodeCharacters Line:115](https://github.com/alan-oregan/Huffman-Project/blob/main/src/HuffmanCoding.java#L115)*
 
 ```java
 /**
@@ -134,7 +134,7 @@ Each character in the encoded string are iterated through using a enhanced for l
 - if the character of the node is the not '*' then the character is added to the stringbuilder and the current node is reset to the root node.
 - once the loop is finished the contents of the string builder are returned as the decoded value.
 
-Implementation: *[HuffmanCoding.decodeCharacters() Line:147](src/HuffmanCoding.java#L147)*
+Implementation: *[HuffmanCoding.decodeCharacters() Line:147](https://github.com/alan-oregan/Huffman-Project/blob/main/src/HuffmanCoding.java#L147)*
 
 ```java
 /**
@@ -178,7 +178,7 @@ The program interface features 2 buttons for encoding and decoding, a label for 
 
 ### Encode button logic
 
-Implementation: *[HuffmanCodingGUI.actionPerformed() Line:188](src/HuffmanCodingGUI.java#L88)*
+Implementation: *[HuffmanCodingGUI.actionPerformed() Line:188](https://github.com/alan-oregan/Huffman-Project/blob/main/src/HuffmanCodingGUI.java#L88)*
 
 #### Compression Ratio Formula:
 
@@ -210,7 +210,7 @@ if (source == encode) {
 
 ### Decode button logic
 
-Implementation: *[HuffmanCodingGUI.actionPerformed() Line:108](src/HuffmanCodingGUI.java#L108)*
+Implementation: *[HuffmanCodingGUI.actionPerformed() Line:108](https://github.com/alan-oregan/Huffman-Project/blob/main/src/HuffmanCodingGUI.java#L108)*
 
 ```java
 if (source == decode) {
