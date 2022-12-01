@@ -308,9 +308,87 @@ characters = characters.toUpperCase(Locale.ROOT).replaceAll("[^01]","");
 | Alan    | 11101011111101010  | YES |
 | ALaN    | 11101011111101010  | YES |
 | a;L2an  | 11101011111101010  | YES |
+| 11101011111101010 | ALAN | YES |
+| abc11101011;11113401010 | ALAN | YES |
+| 11101011111101010        2345 | ALAN | YES |
 
 : Input Validation table
 
+### Test Case Screenshots
+
+:::: {.columns}
+
+::: {.column}
+![Encode Input test 1](images/Screenshot%20of%20Encode%20Test%20Case%20Input%201.png)
+:::
+
+::: {.column}
+![Encode Output test 1](images/Screenshot%20of%20Encode%20Test%20Case%20Output%201.png)
+:::
+
+::::
+
+:::: {.columns}
+
+::: {.column}
+![Encode Input test 2](images/Screenshot%20of%20Encode%20Test%20Case%20Input%202.png)
+:::
+
+::: {.column}
+![Encode Output test 2](images/Screenshot%20of%20Encode%20Test%20Case%20Output%202.png)
+:::
+
+::::
+
+:::: {.columns}
+
+::: {.column}
+![Encode Input test 3](images/Screenshot%20of%20Encode%20Test%20Case%20Input%203.png)
+:::
+
+::: {.column}
+![Encode Output test 3](images/Screenshot%20of%20Encode%20Test%20Case%20Output%203.png)
+:::
+
+::::
+
+:::: {.columns}
+
+:::: {.columns}
+
+::: {.column}
+![Decode Input test 1](images/Screenshot%20of%20Decode%20Test%20Case%20Input%201.png)
+:::
+
+::: {.column}
+![Decode Output test 1](images/Screenshot%20of%20Decode%20Test%20Case%20Output%201.png)
+:::
+
+::::
+
+:::: {.columns}
+
+::: {.column}
+![Decode Input test 2](images/Screenshot%20of%20Decode%20Test%20Case%20Input%202.png)
+:::
+
+::: {.column}
+![Decode Output test 2](images/Screenshot%20of%20Decode%20Test%20Case%20Output%202.png)
+:::
+
+::::
+
+:::: {.columns}
+
+::: {.column}
+![Decode Input test 3](images/Screenshot%20of%20Decode%20Test%20Case%20Input%203.png)
+:::
+
+::: {.column}
+![Decode Output test 3](images/Screenshot%20of%20Decode%20Test%20Case%20Output%203.png)
+:::
+
+::::
 
 # Academic Honesty
 
