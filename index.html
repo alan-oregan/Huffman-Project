@@ -136,7 +136,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="part-1-generating-the-huffman-tree" class="level2">
 <h2 class="anchored" data-anchor-id="part-1-generating-the-huffman-tree">Part 1: Generating the Huffman Tree</h2>
 <p>In order to generate the huffman tree, the generateHuffmanTree() method uses the frequency table that was generated from the given LetterCountAscending.txt file and sorted by frequency. - The method iterates through the frequency while there is at least 2 items remaining in the table - On each iteration the top 2 elements are added to a new node as the left and right child nodes with the character as ’*’ and the frequency value as the sum of the 2 child nodes frequency values. - The top 2 items are then removed from the frequency table and the new node is added - The table is then sorted using the sort method added to the ListArrayBased class based on the bubble sort algorithm. - When the iteration is complete the rootNode can be used to navigate the tree.</p>
-<p><em>Implementation: <a href="src/HuffmanCoding.java#L47">HuffmanCoding.generateHuffmanTree Line:47</a></em></p>
+<p><em>Implementation: <a href="https://github.com/alan-oregan/Huffman-Project/blob/main/src/HuffmanCoding.java#L47">HuffmanCoding.generateHuffmanTree Line:47</a></em></p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span> <span class="dt">void</span> <span class="fu">generateHuffmanTree</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="bu">TreeNode</span> first<span class="op">;</span></span>
@@ -174,7 +174,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="part-2-encode" class="level2">
 <h2 class="anchored" data-anchor-id="part-2-encode">Part 2: Encode</h2>
 <p>In order to encode a given String of characters using the lookup table generated from the rootNode using a recursive post order traversal.</p>
-<p><em>Implementation: <a href="src/HuffmanCoding.java#L115">HuffmanCoding. Line:115</a></em></p>
+<p><em>Implementation: <a href="https://github.com/alan-oregan/Huffman-Project/blob/main/src/HuffmanCoding.java#L115">HuffmanCoding. Line:115</a></em></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> A recursive post order traversal of the huffman tree</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * @</span>param node the current node <span class="co">(</span>first call should be the root node<span class="co">)</span></span>
@@ -196,7 +196,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a>    <span class="fu">postOrderTraverse</span><span class="op">(</span>node<span class="op">.</span><span class="fu">getRight</span><span class="op">(),</span> binary<span class="op">+</span><span class="st">"1"</span><span class="op">);</span></span>
 <span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <p>The encodeCharacters() method uses binary search to search for the binary value of each character in the string and appends it to the StringBuilder which will then be returned as the encoded value.</p>
-<p><em>Implementation: <a href="src/HuffmanCoding.java#L115">HuffmanCoding.encodeCharacters Line:115</a></em></p>
+<p><em>Implementation: <a href="https://github.com/alan-oregan/Huffman-Project/blob/main/src/HuffmanCoding.java#L115">HuffmanCoding.encodeCharacters Line:115</a></em></p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> encoding method based on binary search<span class="co">.</span></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> <span class="co">@</span>param characters the string of characters to be encoded</span>
@@ -232,7 +232,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="part-3-decode" class="level2">
 <h2 class="anchored" data-anchor-id="part-3-decode">Part 3: Decode</h2>
 <p>The decode implementation is handled in the decodeCharacters() method using the rootNode of the huffman tree. Each character in the encoded string are iterated through using a enhanced for loop. - the method intialises the current node as the root node - if a character is 0 then the the current node is set as the let child of the current node and the right node for 1. - if the character of the node is the not ’*’ then the character is added to the stringbuilder and the current node is reset to the root node. - once the loop is finished the contents of the string builder are returned as the decoded value.</p>
-<p>Implementation: <em><a href="src/HuffmanCoding.java#L147">HuffmanCoding.decodeCharacters() Line:147</a></em></p>
+<p>Implementation: <em><a href="https://github.com/alan-oregan/Huffman-Project/blob/main/src/HuffmanCoding.java#L147">HuffmanCoding.decodeCharacters() Line:147</a></em></p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a> <span class="co">*</span> Huffman Decoding implementation</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * @</span>param characters the string of characters to be decoded</span>
@@ -276,7 +276,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <section id="encode-button-logic" class="level3">
 <h3 class="anchored" data-anchor-id="encode-button-logic">Encode button logic</h3>
-<p>Implementation: <em><a href="src/HuffmanCodingGUI.java#L88">HuffmanCodingGUI.actionPerformed() Line:188</a></em></p>
+<p>Implementation: <em><a href="https://github.com/alan-oregan/Huffman-Project/blob/main/src/HuffmanCodingGUI.java#L88">HuffmanCodingGUI.actionPerformed() Line:188</a></em></p>
 <section id="compression-ratio-formula" class="level4">
 <h4 class="anchored" data-anchor-id="compression-ratio-formula">Compression Ratio Formula:</h4>
 <p>Number of bits in input = Number of characters after sanitizing * 7</p>
@@ -304,7 +304,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="decode-button-logic" class="level3">
 <h3 class="anchored" data-anchor-id="decode-button-logic">Decode button logic</h3>
-<p>Implementation: <em><a href="src/HuffmanCodingGUI.java#L108">HuffmanCodingGUI.actionPerformed() Line:108</a></em></p>
+<p>Implementation: <em><a href="https://github.com/alan-oregan/Huffman-Project/blob/main/src/HuffmanCodingGUI.java#L108">HuffmanCodingGUI.actionPerformed() Line:108</a></em></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode java code-with-copy"><code class="sourceCode java"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="op">(</span>source <span class="op">==</span> decode<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(!</span>inputText<span class="op">.</span><span class="fu">isBlank</span><span class="op">())</span></span>
